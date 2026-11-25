@@ -259,3 +259,7 @@
   .map-worlds { width: min(1200px, 100%); }
 }
 @media (min-width: 2400px) { body { font-size: 22px; } .icon-btn { width: 56px; height: 56px; } .act { min-height: 70px; } }
+
+/* win card: the sunburst is decoration — never let it create a scrollbar */
+@media (min-height: 520px) { .modal-card.win-card { overflow: hidden; } }
+@media (max-height: 519px) { .win-rays { inset: 0 !important; width: auto !important; height: auto !important; } }
