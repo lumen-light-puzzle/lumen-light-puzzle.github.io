@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lumen — a light-bending puzzle adventure</title>
+<meta name="description" content="Bend beams of light through 40 handcrafted puzzles across five worlds. Mirrors, prisms, portals, lenses and a generative soundtrack. Free, no sign-up, plays in your browser.">
+<meta name="theme-color" content="#0b0820">
+<meta name="color-scheme" content="dark">
+<meta property="og:title" content="Lumen — a light-bending puzzle adventure">
+<meta property="og:description" content="Guide beams of light through 40 puzzles across Dawn Temple, Crystal Caves, Neon City, Deep Ocean and The Void. Every lit crystal sings.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://kumarnikhildeveloperaccount.github.io/lumen/">
+<meta name="twitter:card" content="summary">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/screens.css">
+</head>
+<body>
+<a class="skip" href="#btn-play">Skip to game</a>
+<canvas id="bg" aria-hidden="true"></canvas>
+<div class="grain" aria-hidden="true"></div>
+
+<div id="app">
+  <!-- ============ TITLE ============ -->
+  <section id="scr-title" class="screen active" aria-label="Title screen">
+    <div class="title-wrap">
+      <div class="logo-orbit" aria-hidden="true"><i></i><i></i><i></i></div>
+      <h1 class="logo" id="logo" aria-label="Lumen">
+        <span style="--i:0">L</span><span style="--i:1">U</span><span style="--i:2">M</span><span style="--i:3">E</span><span style="--i:4">N</span>
+        <b class="logo-beam" aria-hidden="true"></b>
+      </h1>
+      <p class="tagline">A light-bending puzzle adventure</p>
+      <div class="title-btns">
+        <button id="btn-play" class="btn primary"><span class="btn-glow" aria-hidden="true"></span><span>Begin the journey</span></button>
+        <button id="btn-daily" class="btn"><span>☀ Daily Prism</span><small id="daily-sub">a fresh puzzle every day</small></button>
+        <button id="btn-editor" class="btn"><span>✎ Level Workshop</span><small>build &amp; share puzzles</small></button>
+        <div class="row">
+          <button id="btn-settings" class="btn ghost">⚙ Settings</button>
+          <button id="btn-about" class="btn ghost">✦ About</button>
+        </div>
+      </div>
+      <button id="btn-sound" class="sound-toggle" aria-pressed="false"><span class="eq" aria-hidden="true"><i></i><i></i><i></i></span><span id="btn-sound-label">Sound is off — tap to enable</span></button>
+      <p class="title-quip" id="title-quip" aria-live="polite"></p>
+    </div>
+    <footer class="site-foot">
+      <p>Designed &amp; built by <strong>Kumar Nikhil</strong> ·
+        <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a> ·
+        <a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a> ·
+        <a href="mailto:nkashyapnikhilnk@gmail.com">Email</a> ·
+        <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a></p>
+      <p class="grat">With gratitude to God — Om Namah Paarvati Pateh, Har Har Mahadev. May God bless you and everyone.</p>
+    </footer>
+  </section>
+
+  <!-- ============ MAP ============ -->
+  <section id="scr-map" class="screen" aria-label="World map">
+    <header class="topbar">
+      <button id="map-back" class="icon-btn" aria-label="Back to title">←</button>
+      <h2>The Lightways</h2>
+      <div class="star-total" id="star-total" aria-label="Stars collected">★ 0 / 120</div>
+      <button id="map-settings" class="icon-btn" aria-label="Settings">⚙</button>
+    </header>
+    <div id="map-scroll" class="map-scroll">
+      <div id="map-worlds" class="map-worlds"></div>
+      <footer class="site-foot">
+        <p>Designed &amp; built by <strong>Kumar Nikhil</strong> ·
+          <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">Portfolio</a> ·
+          <a href="https://www.linkedin.com/in/kumar-nikhil-1000a9192/" target="_blank" rel="noopener">LinkedIn</a> ·
+          <a href="mailto:nkashyapnikhilnk@gmail.com">Email</a> ·
+          <a href="https://kumarnikhildeveloperaccount.github.io/" target="_blank" rel="noopener">More projects by Kumar Nikhil →</a></p>
+        <p class="grat">With gratitude to God — Om Namah Paarvati Pateh, Har Har Mahadev. May God bless you and everyone.</p>
+      </footer>
+    </div>
+  </section>
+
+  <!-- ============ GAME ============ -->
+  <section id="scr-game" class="screen" aria-label="Puzzle">
+    <header class="hud">
+      <button id="g-back" class="icon-btn" aria-label="Back">←</button>
+      <div class="hud-title"><span id="g-world">Dawn Temple · 1</span><strong id="g-name">First Light</strong></div>
+      <div class="hud-stats" aria-live="off">
+        <span class="stat"><em>Moves</em><b id="g-moves">0</b><i id="g-par">par 1</i></span>
+        <span class="stat"><em>Time</em><b id="g-time">0:00</b></span>
+      </div>
+      <div class="hud-stars" id="g-stars" aria-label="Projected stars">★★★</div>
+      <button id="g-sound" class="icon-btn" aria-label="Toggle sound">🔇</button>
+      <button id="g-menu" class="icon-btn" aria-label="Settings">⚙</button>
+    </header>
+    <div id="stage" class="stage">
+      <canvas id="board" tabindex="0" aria-label="Puzzle board. Use arrow keys to move the cursor, Enter to rotate, H for a hint."></canvas>
+      <div id="lit-meter" class="lit-meter" aria-live="polite"></div>
+      <div id="narrator" class="narrator" aria-live="polite"><span class="nar-orb" aria-hidden="true"></span><p id="nar-text"></p></div>
+      <div id="zoom-hint" class="zoom-hint" hidden>Pinch to zoom · double-tap to reset</div>
+    </div>
+    <div id="tray" class="tray" aria-label="Pieces to place"></div>
+    <nav class="actions" aria-label="Puzzle actions">
+      <button id="a-ccw" class="act" aria-label="Rotate selected anticlockwise"><span>⟲</span><small>Left</small></button>
+      <button id="a-cw" class="act" aria-label="Rotate selected clockwise"><span>⟳</span><small>Right</small></button>
+      <button id="a-undo" class="act" aria-label="Undo"><span>↶</span><small>Undo</small></button>
+      <button id="a-redo" class="act" aria-label="Redo"><span>↷</span><small>Redo</small></button>
+      <button id="a-hint" class="act hint" aria-label="Hint"><span>✦</span><small>Hint</small></button>
+      <button id="a-totray" class="act" aria-label="Return selected piece to tray" hidden><span>⤓</span><small>Tray</small></button>
+      <button id="a-reset" class="act" aria-label="Restart level"><span>↺</span><small>Reset</small></button>
+    </nav>
+  </section>
+
+  <!-- ============ EDITOR ============ -->
+  <section id="scr-editor" class="screen" aria-label="Level workshop">
+    <header class="hud">
+      <button id="e-back" class="icon-btn" aria-label="Back to title">←</button>
+      <div class="hud-title"><span>Level Workshop</span><strong id="e-status">Place an emitter to begin</strong></div>
+      <button id="e-test" class="chip">▶ Test</button>
+      <button id="e-export" class="chip">⇪ Share</button>
+      <button id="e-import" class="chip">⇩ Import</button>
+    </header>
+    <div id="ed-palette" class="ed-palette" role="toolbar" aria-label="Piece palette"></div>
+    <div id="ed-stage" class="stage">
+      <canvas id="ed-board" tabindex="0" aria-label="Editor board"></canvas>
+    </div>
+    <div class="ed-opts">
+      <label>Width <select id="ed-w"></select></label>
+      <label>Height <select id="ed-h"></select></label>
+      <label class="check"><input type="checkbox" id="ed-tray"> Mirrors start in tray</label>
+      <input id="ed-name" type="text" maxlength="32" placeholder="Level name" aria-label="Level name">
+      <button id="ed-clear" class="chip danger">Clear</button>
+    </div>
+  </section>
+</div>
+
+<div id="modal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title" hidden>
+  <div class="modal-back" id="modal-back"></div>
+  <div class="modal-card" id="modal-card">
+    <button id="modal-x" class="modal-x" aria-label="Close">×</button>
+    <div id="modal-body"></div>
+  </div>
+</div>
+<div id="drag-ghost" class="drag-ghost" aria-hidden="true"></div>
+<div id="veil" class="veil" aria-hidden="true"></div>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<noscript><div class="noscript">Lumen needs JavaScript to bend light. The photons are waiting patiently.</div></noscript>
+
+<script src="js/util.js" defer></script>
+<script src="js/engine.js" defer></script>
+<script src="js/generator.js" defer></script>
+<script src="js/levels.js" defer></script>
+<script src="js/audio.js" defer></script>
+<script src="js/bg.js" defer></script>
+<script src="js/pieces.js" defer></script>
+<script src="js/render.js" defer></script>
+<script src="js/input.js" defer></script>
+<script src="js/game.js" defer></script>
+<script src="js/ui.js" defer></script>
+<script src="js/editor.js" defer></script>
+<script src="js/main.js" defer></script>
+</body>
+</html>

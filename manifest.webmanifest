@@ -1,0 +1,14 @@
+{
+  "name": "Lumen — a light-bending puzzle adventure",
+  "short_name": "Lumen",
+  "description": "Bend beams of light through 40 puzzles across five worlds. Mirrors, prisms, portals, lenses and a generative soundtrack.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#0b0820",
+  "theme_color": "#0b0820",
+  "icons": [
+    { "src": "favicon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ]
+}
